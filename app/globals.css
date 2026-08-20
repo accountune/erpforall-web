@@ -1,0 +1,354 @@
+@import "tailwindcss";
+
+/* ============================================================
+   ERP for All — design tokens
+   Palette is derived from the logo: the navy-to-blue wordmark
+   and the four icon colours in the orbit ring. Each accent is
+   bound to one product area and never used decoratively.
+   ============================================================ */
+
+@theme {
+  --color-ink: #0a1b36; /* wordmark navy — primary text */
+  --color-ink-2: #34496b; /* secondary text */
+  --color-ink-3: #6b7c99; /* muted / captions */
+
+  --color-navy: #071429; /* hero ground */
+  --color-navy-2: #0e2547;
+
+  --color-blue: #1668e3; /* brand blue — "All", primary action */
+  --color-blue-bright: #2e8bff; /* the light bar in the E */
+  --color-blue-soft: #e8f0fe;
+
+  --color-report: #1668e3; /* bar-chart icon → GST & reports */
+  --color-sales: #1ea05b; /* cart icon      → billing & sales */
+  --color-party: #e8990f; /* people icon    → parties & customers */
+  --color-stock: #7a4fcb; /* gear icon      → stock & operations */
+
+  --color-paper: #f4f7fc; /* cool ledger paper */
+  --color-rule: #dbe3f0; /* hairline rules */
+  --color-rule-2: #eef2f9;
+
+  --font-display: var(--font-archivo), "Arial Black", system-ui, sans-serif;
+  --font-sans: var(--font-public-sans), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", monospace;
+
+  --radius-cell: 3px;
+}
+
+/* ------------------------------------------------------------
+   Base
+   ------------------------------------------------------------ */
+
+* {
+  border-color: var(--color-rule);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-blue);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Every figure on this site is monospaced and tabular. Numbers
+   are the product, so they get their own face and always align. */
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.01em;
+}
+
+/* ------------------------------------------------------------
+   Display type — Archivo held wide, the way a form heading is set
+   ------------------------------------------------------------ */
+
+.display {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 112;
+  font-weight: 700;
+  letter-spacing: -0.028em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.display-sm {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 108;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+/* Tiny uppercase mono label — the caption printed inside every
+   box on a GST return. Used for section eyebrows and field names. */
+.field-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+
+/* ------------------------------------------------------------
+   Ledger surfaces
+   ------------------------------------------------------------ */
+
+.sheet {
+  background: #fff;
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-cell);
+}
+
+/* Field box: a cell with its label notched into the top-left,
+   lifted straight from the boxes on GSTR-1. */
+.field {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-cell);
+  padding: 1.75rem 1.5rem 1.5rem;
+}
+
+.field > .field-label {
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  transform: translateY(-50%);
+  background: var(--color-paper);
+  padding: 0 0.5rem;
+}
+
+.field-on-white > .field-label {
+  background: #fff;
+}
+
+/* ------------------------------------------------------------
+   Controls
+   ------------------------------------------------------------ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-cell);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1;
+  padding: 0.875rem 1.375rem;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
+  white-space: nowrap;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--color-blue);
+  color: #fff;
+  border: 1px solid var(--color-blue);
+}
+
+.btn-primary:hover {
+  background: #0f56c4;
+  border-color: #0f56c4;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-ink);
+  border: 1px solid var(--color-rule);
+}
+
+.btn-ghost:hover {
+  border-color: var(--color-ink-3);
+  background: #fff;
+}
+
+.btn-on-navy {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.btn-on-navy:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Underline that draws on hover — used for text links */
+.link-rule {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.25s ease;
+}
+
+.link-rule:hover {
+  background-size: 100% 1px;
+}
+
+/* ------------------------------------------------------------
+   Motion — one orchestrated moment in the hero, quiet elsewhere
+   ------------------------------------------------------------ */
+
+@keyframes row-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes stamp-in {
+  0% {
+    opacity: 0;
+    transform: scale(1.5) rotate(-14deg);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(0.94) rotate(-9deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(-9deg);
+  }
+}
+
+.animate-row-in {
+  animation: row-in 0.42s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+.animate-stamp-in {
+  animation: stamp-in 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.6s cubic-bezier(0.2, 0.7, 0.3, 1),
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.reveal[data-shown="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------
+   Long-form legal typography (privacy policy)
+   ------------------------------------------------------------ */
+
+.prose-legal {
+  color: var(--color-ink-2);
+  font-size: 0.9688rem;
+  line-height: 1.75;
+}
+
+.prose-legal h2 {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 108;
+  font-weight: 700;
+  letter-spacing: -0.018em;
+  font-size: 1.375rem;
+  line-height: 1.2;
+  color: var(--color-ink);
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-rule);
+}
+
+.prose-legal h3 {
+  font-weight: 650;
+  font-size: 1rem;
+  color: var(--color-ink);
+  margin-top: 1.75rem;
+}
+
+.prose-legal p {
+  margin-top: 0.875rem;
+}
+
+.prose-legal ul {
+  margin-top: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.prose-legal li {
+  position: relative;
+  padding-left: 1.25rem;
+}
+
+.prose-legal li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 6px;
+  height: 1px;
+  background: var(--color-blue);
+}
+
+.prose-legal strong {
+  color: var(--color-ink);
+  font-weight: 650;
+}
+
+.prose-legal a {
+  color: var(--color-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
